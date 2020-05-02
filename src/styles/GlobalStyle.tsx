@@ -115,6 +115,9 @@ const GlobalStyle = createGlobalStyle`
     min-width: 0;
     border-radius: 0;
   }
+  input::placeholder {
+    color: ${theme.darkGrey};
+  }
   label:hover {
     cursor: text;
   }

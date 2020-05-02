@@ -1,19 +1,23 @@
 import React from "react";
+import moment from "moment";
 import { Wrapper } from "./styles";
 import TextButton from "../../styles/TextButton";
 import ButtonWrapper from "../../styles/ButtonWrapper";
 
-const Project = () => {
+const Project = ({ name, createdAt, deadline }: any) => {
+  const formattedDeadline = moment(deadline).format("h:mm a, MMMM Do YYYY");
+  const creationDate = moment(createdAt).fromNow();
+
   return (
     <Wrapper>
       <div className='info'>
-        <h4>Project Name</h4>
-        <p className='creation-date'>2pm 23 March, 2019</p>
+        <h4>{name}</h4>
+        <p className='creation-date'>{creationDate}</p>
         <p>
           <b>Status</b> In progress
         </p>
         <p>
-          <b>Deadline</b> 2pm, 23 April, 2019
+          <b>Deadline</b> {formattedDeadline}
         </p>
         <p>
           <b>Time logged</b> 2hrs

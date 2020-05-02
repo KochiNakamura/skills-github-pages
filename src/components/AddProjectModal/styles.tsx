@@ -2,9 +2,9 @@ import styled from "styled-components";
 import { gts } from "../../utils/styles";
 
 export const Wrapper = styled.div`
-  margin-bottom: ${gts("mdMargin")}px;
-
   label {
+    display: block;
+    margin-bottom: ${gts("mdMargin")}px;
     font-weight: 400;
     font-size: 1.2rem;
     color: ${gts("darkGrey")};
