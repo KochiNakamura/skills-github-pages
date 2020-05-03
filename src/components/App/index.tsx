@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { ThemeProvider } from "styled-components";
 
 import { ProjectsProvider } from "../../contexts/projectsContext";
+import { SortProvider } from "../../contexts/sortContext";
+
 import Header from "../Header";
 import ProjectSort from "../ProjectSort";
 import AllProjects from "../AllProjects";
@@ -19,16 +21,18 @@ const App = () => {
 
   return (
     <ThemeProvider theme={theme}>
-      <ProjectsProvider>
-        <Wrapper>
-          <GlobalStyle />
-          <Header openModal={openModal} />
-          <ProjectSort />
-          <AllProjects />
-          <Footer />
-          <AddProjectModal show={showModal} onClose={closeModal} />
-        </Wrapper>
-      </ProjectsProvider>
+      <SortProvider>
+        <ProjectsProvider>
+          <Wrapper>
+            <GlobalStyle />
+            <Header openModal={openModal} />
+            <ProjectSort />
+            <AllProjects />
+            <Footer />
+            <AddProjectModal show={showModal} onClose={closeModal} />
+          </Wrapper>
+        </ProjectsProvider>
+      </SortProvider>
     </ThemeProvider>
   );
 };

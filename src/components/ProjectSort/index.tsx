@@ -1,19 +1,27 @@
-import React, { useState, ChangeEvent } from "react";
+import React, { useEffect, ChangeEvent } from "react";
+
+import { useProjectsDispatch } from "../../contexts/projectsContext";
+import { useSortState, useSetSort } from "../../contexts/sortContext";
 
 import { StyledSortWrapper } from "./styles";
 import Sorts from "../../constants/sorts";
-import { useProjectsDispatch } from "../../contexts/projectsContext";
 import Actions from "../../constants/actions";
 
 const ProjectSort = () => {
-  const [sortType, setSortType] = useState<Sorts>(Sorts.CREATION_DATE);
+  const sortType = useSortState();
+  const setSort = useSetSort();
   const dispatch = useProjectsDispatch();
+
+  // By having this useEffect not only we sort the projects
+  // but we also set the sort select element to the right value.
+  useEffect(() => {
+    dispatch({ type: `SORT:${sortType}` as Actions });
+  }, [sortType, dispatch]);
 
   const onChange = ({ target }: ChangeEvent<HTMLSelectElement>) => {
     const newSortType = target.value as Sorts;
 
-    setSortType(newSortType);
-    dispatch({ type: `SORT:${newSortType}` as Actions });
+    setSort(newSortType);
   };
 
   return (

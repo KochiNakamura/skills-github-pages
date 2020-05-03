@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { v4 as uuidv4 } from "uuid";
 
-import Modal from "../Modal";
 import { useProjectsDispatch } from "../../contexts/projectsContext";
+import { useSetSort } from "../../contexts/sortContext";
+
+import Modal from "../Modal";
 import Actions from "../../constants/actions";
 import Statuses from "../../constants/statuses";
 import FieldWrapper from "../../styles/FieldWrapper";
+import Sorts from "../../constants/sorts";
 
 interface Props {
   show: boolean;
@@ -17,6 +20,7 @@ const AddProjectModal = ({ show, onClose }: Props) => {
   const [name, setName] = useState("");
   const [deadline, setDeadline] = useState("");
   const [timeSpent, setTimeSpent] = useState(0);
+  const setSort = useSetSort();
   const dispatch = useProjectsDispatch();
 
   useEffect(() => {
@@ -36,6 +40,9 @@ const AddProjectModal = ({ show, onClose }: Props) => {
         status: Statuses.INCOMPLETE,
         timeLogged: timeSpent,
       };
+
+      // sort the projects by CREATION_DATE first so that projects are in order
+      setSort(Sorts.CREATION_DATE);
 
       dispatch({ type: Actions.ADD_PROJECT, payload: newProject });
       return true;
