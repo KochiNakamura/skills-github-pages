@@ -12,8 +12,8 @@ const ProjectSort = () => {
   const setSort = useSetSort();
   const dispatch = useProjectsDispatch();
 
-  // By having this useEffect not only we sort the projects
-  // but we also set the sort select element to the right value.
+  // By having this useEffect not only we sort the projects but we also
+  // set the sort select element to the right value whenever sortType is changed.
   useEffect(() => {
     dispatch({ type: `SORT:${sortType}` as Actions });
   }, [sortType, dispatch]);

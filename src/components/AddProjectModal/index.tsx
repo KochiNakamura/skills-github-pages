@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { v4 as uuidv4 } from "uuid";
+import moment from "moment";
 
 import { useProjectsDispatch } from "../../contexts/projectsContext";
 import { useSetSort } from "../../contexts/sortContext";
@@ -9,6 +10,7 @@ import Actions from "../../constants/actions";
 import Statuses from "../../constants/statuses";
 import FieldWrapper from "../../styles/FieldWrapper";
 import Sorts from "../../constants/sorts";
+import { getTimeDifference } from "../../utils/time";
 
 interface Props {
   show: boolean;
@@ -16,22 +18,32 @@ interface Props {
 }
 
 const AddProjectModal = ({ show, onClose }: Props) => {
+  const minDate = moment().add(1, "days").format("YYYY-MM-DD");
+
   const [error, setError] = useState("");
   const [name, setName] = useState("");
-  const [deadline, setDeadline] = useState("");
+  const [deadline, setDeadline] = useState(minDate);
   const [timeSpent, setTimeSpent] = useState(0);
   const setSort = useSetSort();
   const dispatch = useProjectsDispatch();
 
   useEffect(() => {
     setName("");
-    setDeadline("");
+    setDeadline(minDate);
     setTimeSpent(0);
     setError("");
+    // Have not added minDateTime to dependency array so that it doesn't reset the state.
+    // eslint-disable-next-line
   }, [show]);
 
   const addProject = () => {
-    if (name && deadline && timeSpent >= 0) {
+    // Deadline is invalid if it is less than a day.
+    const isDeadlineInvalid = getTimeDifference(deadline, minDate) < 0;
+
+    if (isDeadlineInvalid) {
+      setError("Deadline should be atleast 1 day in future!");
+      return false;
+    } else if (name && deadline && timeSpent >= 0) {
       const newProject = {
         name,
         deadline,
@@ -66,10 +78,11 @@ const AddProjectModal = ({ show, onClose }: Props) => {
           />
         </label>
         <label>
-          Deadline
+          Deadline(1 day minimum)
           <input
-            type='datetime-local'
+            type='date'
             name='deadline'
+            min={minDate}
             value={deadline}
             placeholder='Enter project deadline'
             onChange={({ target }) => setDeadline(target.value)}

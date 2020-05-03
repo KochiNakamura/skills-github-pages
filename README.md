@@ -50,4 +50,5 @@ Individual time registrations should be 30 minutes or longer, and once a project
 4. The ADD_PROJECT modal only gives one error/warning message in the app, but I can make sure that it renders an exact error/warning message if I had more time. The purpose of showing the error message was to let you now that I am aware of the feedback that needs to be given to user when a form-like submission is happened.
 5. By adding some more typescript rules, I could have typed our app more strongly.
 6. Since the app has a lot to do with date and time fields, proper testing of date and their validation is very important. I have tried to make sure that is done but yes with more time I can make the validation/testing better.
-7. Proper datetime picker can be used to make the time selection and deadline selection better UX and UI wise.
+7. Proper datetime picker can be used to make the time selection and deadline selection better UX and UI wise. Since the focus of the challenge is to see the architecture of app, that's why I haven't tried to use fancy libraries for time and date picking.
+8. Minimum deadline is 1 day just for simplicity sake, but this can be improved as per requirements.

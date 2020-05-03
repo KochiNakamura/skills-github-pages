@@ -4,29 +4,20 @@ import { setLocalValue } from "../utils/localstorage";
 import { State, Action, Project } from "../types/common";
 import Actions from "../constants/actions";
 import Statuses from "../constants/statuses";
+import { getTimeDifference } from "../utils/time";
 
 const projectsReducer = (state: State, action: Action) => {
   switch (action.type) {
     case Actions.SORT_BY_DEADLINE: {
       const sortedState = produce(state, (draftState) =>
-        draftState.sort((a: Project, b: Project) => {
-          const deadlineA = new Date(a.deadline).getTime();
-          const deadlineB = new Date(b.deadline).getTime();
-
-          return deadlineA - deadlineB;
-        })
+        draftState.sort((a: Project, b: Project) => getTimeDifference(a.deadline, b.deadline))
       );
 
       return sortedState;
     }
     case Actions.SORT_BY_CREATION_DATE: {
       const sortedState = produce(state, (draftState) =>
-        draftState.sort((a: Project, b: Project) => {
-          const creationDateA = new Date(a.createdAt).getTime();
-          const creationDateB = new Date(b.createdAt).getTime();
-
-          return creationDateB - creationDateA;
-        })
+        draftState.sort((a: Project, b: Project) => getTimeDifference(b.createdAt, a.createdAt))
       );
 
       return sortedState;
