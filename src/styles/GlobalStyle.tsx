@@ -115,6 +115,23 @@ const GlobalStyle = createGlobalStyle`
     min-width: 0;
     border-radius: 0;
   }
+  input {
+    margin-top: 5px;
+    background: none;
+    outline: none;
+    box-shadow: none;
+    border: none;
+    border-bottom: solid 1px ${theme.grey};
+    padding: ${theme.xsMargin}px 0;
+    width: 100%;
+    display: block;
+    font-size: 1.4rem;
+
+    &:focus {
+      border-color: ${theme.black};
+      outline: none;
+    }
+  }
   input::placeholder {
     color: ${theme.darkGrey};
   }
@@ -153,6 +170,9 @@ const GlobalStyle = createGlobalStyle`
   @media(max-width: ${theme.mobileScreenWidth}) {
     html {
       font-size: 9px;
+    }
+    input {
+      font-size: 16px !important;
     }
   }
 `;

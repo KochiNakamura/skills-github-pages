@@ -1,4 +1,5 @@
 import produce from "immer";
+import moment from "moment";
 
 import { setLocalValue } from "../utils/localstorage";
 import { State, Action, Project } from "../types/common";
@@ -10,14 +11,18 @@ const projectsReducer = (state: State, action: Action) => {
   switch (action.type) {
     case Actions.SORT_BY_DEADLINE: {
       const sortedState = produce(state, (draftState) =>
-        draftState.sort((a: Project, b: Project) => getTimeDifference(a.deadline, b.deadline))
+        draftState.sort((a: Project, b: Project) =>
+          getTimeDifference(moment(a.deadline), moment(b.deadline))
+        )
       );
 
       return sortedState;
     }
     case Actions.SORT_BY_CREATION_DATE: {
       const sortedState = produce(state, (draftState) =>
-        draftState.sort((a: Project, b: Project) => getTimeDifference(b.createdAt, a.createdAt))
+        draftState.sort((a: Project, b: Project) =>
+          getTimeDifference(moment(b.createdAt), moment(a.createdAt))
+        )
       );
 
       return sortedState;

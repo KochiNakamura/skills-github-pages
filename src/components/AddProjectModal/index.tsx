@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { v4 as uuidv4 } from "uuid";
-import moment from "moment";
+import moment, { Moment } from "moment";
 
 import { useProjectsDispatch } from "../../contexts/projectsContext";
 import { useSetSort } from "../../contexts/sortContext";
 
+import DateTime from "../DateTime";
 import Modal from "../Modal";
 import Actions from "../../constants/actions";
 import Statuses from "../../constants/statuses";
@@ -18,15 +19,19 @@ interface Props {
 }
 
 const AddProjectModal = ({ show, onClose }: Props) => {
-  const minDate = moment().add(1, "days").format("YYYY-MM-DD");
+  const minDate = moment().add(1, "days");
 
   const [error, setError] = useState("");
   const [name, setName] = useState("");
-  const [deadline, setDeadline] = useState(minDate);
+  const [deadline, setDeadline] = useState<Moment>(minDate);
   const [timeSpent, setTimeSpent] = useState(0);
   const setSort = useSetSort();
   const dispatch = useProjectsDispatch();
 
+  // Deadline is invalid if it is less than a day.
+  const isDeadlineInvalid = getTimeDifference(deadline, minDate) < 0;
+
+  // reset modal state
   useEffect(() => {
     setName("");
     setDeadline(minDate);
@@ -37,16 +42,13 @@ const AddProjectModal = ({ show, onClose }: Props) => {
   }, [show]);
 
   const addProject = () => {
-    // Deadline is invalid if it is less than a day.
-    const isDeadlineInvalid = getTimeDifference(deadline, minDate) < 0;
-
     if (isDeadlineInvalid) {
       setError("Deadline should be atleast 1 day in future!");
       return false;
     } else if (name && deadline && timeSpent >= 0) {
       const newProject = {
         name,
-        deadline,
+        deadline: deadline.toString(),
         id: uuidv4(),
         createdAt: Date.now(),
         status: Statuses.INCOMPLETE,
@@ -79,13 +81,17 @@ const AddProjectModal = ({ show, onClose }: Props) => {
         </label>
         <label>
           Deadline(1 day minimum)
-          <input
-            type='date'
-            name='deadline'
-            min={minDate}
+          <DateTime
             value={deadline}
-            placeholder='Enter project deadline'
-            onChange={({ target }) => setDeadline(target.value)}
+            closeOnSelect={true}
+            isValidDate={(current) => current.isSameOrAfter(minDate)}
+            onChange={(newDate) => {
+              if (typeof newDate === "string") {
+                setDeadline(minDate);
+              } else {
+                setDeadline(newDate);
+              }
+            }}
           />
         </label>
         <label>
