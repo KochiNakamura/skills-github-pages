@@ -13,7 +13,7 @@ const AllProjects = () => {
     if (projects.length === 0) {
       return <NoProject />;
     } else {
-      return projects.map((project: TProject) => <Project key={project.createdAt} {...project} />);
+      return projects.map((project: TProject) => <Project key={project.id} {...project} />);
     }
   };
 

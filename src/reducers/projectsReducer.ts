@@ -3,6 +3,7 @@ import produce from "immer";
 import { setLocalValue } from "../utils/localstorage";
 import { State, Action, Project } from "../types/common";
 import Actions from "../constants/actions";
+import Statuses from "../constants/statuses";
 
 const projectsReducer = (state: State, action: Action) => {
   switch (action.type) {
@@ -41,10 +42,26 @@ const projectsReducer = (state: State, action: Action) => {
       return state;
     }
     case Actions.MARK_COMPLETE: {
-      return state;
+      const newState = produce(state, (draftState) =>
+        draftState.forEach((e) => {
+          if (e.id === action.payload) {
+            e.status = Statuses.COMPLETE;
+          }
+        })
+      );
+
+      return newState;
     }
     case Actions.MARK_INCOMPLETE: {
-      return state;
+      const newState = produce(state, (draftState) =>
+        draftState.forEach((e) => {
+          if (e.id === action.payload) {
+            e.status = Statuses.INCOMPLETE;
+          }
+        })
+      );
+
+      return newState;
     }
     default: {
       throw new Error(`Unhandled action type: ${action.type}`);

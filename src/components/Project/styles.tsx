@@ -20,7 +20,7 @@ export const Wrapper = styled.div`
     }
     p:not(.creation-date) {
       flex: 1;
-      min-width: 200px;
+      min-width: 230px;
       color: ${gts("darkGrey")};
       b {
         color: ${gts("black")};
