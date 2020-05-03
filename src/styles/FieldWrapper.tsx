@@ -1,7 +1,7 @@
 import styled from "styled-components";
-import { gts } from "../../utils/styles";
+import { gts } from "../utils/styles";
 
-export const Wrapper = styled.div`
+const FieldWrapper = styled.div`
   label {
     display: block;
     margin-bottom: ${gts("mdMargin")}px;
@@ -24,5 +24,11 @@ export const Wrapper = styled.div`
         border-color: ${gts("black")};
       }
     }
+
+    &:last-child {
+      margin-bottom: 0;
+    }
   }
 `;
+
+export default FieldWrapper;

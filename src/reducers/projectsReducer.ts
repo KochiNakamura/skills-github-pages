@@ -39,7 +39,17 @@ const projectsReducer = (state: State, action: Action) => {
       return newState;
     }
     case Actions.ADD_TIME: {
-      return state;
+      const newState = produce(state, (draftState) =>
+        draftState.forEach((e) => {
+          if (e.id === action.payload.id) {
+            e.timeLogged += action.payload.time;
+          }
+        })
+      );
+
+      setLocalValue("projects", newState);
+
+      return newState;
     }
     case Actions.MARK_COMPLETE: {
       const newState = produce(state, (draftState) =>
@@ -49,6 +59,8 @@ const projectsReducer = (state: State, action: Action) => {
           }
         })
       );
+
+      setLocalValue("projects", newState);
 
       return newState;
     }
@@ -60,6 +72,8 @@ const projectsReducer = (state: State, action: Action) => {
           }
         })
       );
+
+      setLocalValue("projects", newState);
 
       return newState;
     }

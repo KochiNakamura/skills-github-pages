@@ -5,8 +5,8 @@ import { getLocalValue } from "../utils/localstorage";
 import { Action, State } from "../types/common";
 
 type Dispatch = (action: Action) => void;
-
 type ProjectsProviderProps = { children: React.ReactNode };
+
 const ProjectsStateContext = React.createContext<State | undefined>(undefined);
 const ProjectsDispatchContext = React.createContext<Dispatch | undefined>(undefined);
 

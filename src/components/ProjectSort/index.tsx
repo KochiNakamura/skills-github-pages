@@ -10,9 +10,9 @@ const ProjectSort = () => {
   const dispatch = useProjectsDispatch();
 
   const onChange = ({ target }: ChangeEvent<HTMLSelectElement>) => {
-    const newSortType = target.value;
+    const newSortType = target.value as Sorts;
 
-    setSortType(newSortType as Sorts);
+    setSortType(newSortType);
     dispatch({ type: `SORT:${newSortType}` as Actions });
   };
 

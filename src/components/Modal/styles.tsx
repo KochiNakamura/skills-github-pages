@@ -26,11 +26,21 @@ export const ModalWrapper = styled.div`
 `;
 
 export const ContentWrapper = styled.div`
-  padding: ${gts("mdMargin")}px ${gts("smMargin")}px ${gts("smMargin")}px;
+  padding: ${gts("mdMargin")}px ${gts("smMargin")}px;
   overflow-y: auto;
 `;
 
 export const Heading = styled.h4`
   border-bottom: solid 1px ${gts("grey")};
   text-align: center;
+`;
+
+export const ErrorMessage = styled.p`
+  &:empty {
+    display: none;
+  }
+
+  color ${gts("red")};
+  margin-bottom: ${gts("mdMargin")}px;
+  margin-top: 0;
 `;
