@@ -24,3 +24,30 @@ Individual time registrations should be 30 minutes or longer, and once a project
 1. Install dependencies - `npm install`
 2. Run project - `npm start`
 3. Go to `http://localhost:3000` to see the app
+
+## Stack
+
+1. React ❤️ Hooks ❤️ Context Api for state management
+2. Styled Components
+3. TypeScript
+
+## Summary
+
+- Since the app is simple, I have used React hooks + Context API combination to manage the state.
+- Styled components makes it CSS scoped and declarative.
+- Different part of app are seperated into different folders and files to make the app more modular and structured.
+- LocalStorage is used to persist state.
+- Common/shared components or files are separated so that they can be used by other components.
+- Everything is typed as per the tsconfig.json given as starting point.
+- Fragile, logical or important part of apps are only tested.
+- Native HTML elements are used over libraries, as the need of the project was already met and also to keep things simple in time constraints.
+
+## Improvements that can be done
+
+1. Add pagination when the no of projects is large.
+2. Sorting can also be optimised by only sorting the projects that are being displayed.
+3. By deep debugging the code and using useCallback and useMemo, we can for sure avoid some rerenders to make app more optimised. The current app worked smoothly and I have tried to avoid extra rerenders but I didn't debug the app thoroughly as I didn't have much time.
+4. The ADD_PROJECT modal only gives one error/warning message in the app, but I can make sure that it renders an exact error/warning message if I had more time. The purpose of showing the error message was to let you now that I am aware of the feedback that needs to be given to user when a form-like submission is happened.
+5. By adding some more typescript rules, I could have typed our app more strongly.
+6. Since the app has a lot to do with date and time fields, proper testing of date and their validation is very important. I have tried to make sure that is done but yes with more time I can make the validation/testing better.
+7. Proper datetime picker can be used to make the time selection and deadline selection better UX and UI wise.
