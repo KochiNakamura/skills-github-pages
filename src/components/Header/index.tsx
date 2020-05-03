@@ -1,8 +1,13 @@
 import React from "react";
+
 import TextButton from "../../styles/TextButton";
 import { StyledHeader } from "./styles";
 
-const Header = ({ openModal }: any) => {
+interface Props {
+  openModal: () => void;
+}
+
+const Header = ({ openModal }: Props) => {
   return (
     <StyledHeader>
       <h3>Timelogger</h3>

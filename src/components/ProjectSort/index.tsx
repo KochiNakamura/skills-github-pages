@@ -1,19 +1,31 @@
-import React from "react";
-import { StyledSort } from "./styles";
+import React, { useState, ChangeEvent } from "react";
 
-const ProjectSort = ({ type, setSortType }: any) => {
-  const onChange = ({ target }: any) => setSortType(target.value);
+import { StyledSortWrapper } from "./styles";
+import Sorts from "../../constants/sorts";
+import { useProjectsDispatch } from "../../contexts/projectsContext";
+import Actions from "../../constants/actions";
+
+const ProjectSort = () => {
+  const [sortType, setSortType] = useState<Sorts>(Sorts.CREATION_DATE);
+  const dispatch = useProjectsDispatch();
+
+  const onChange = ({ target }: ChangeEvent<HTMLSelectElement>) => {
+    const newSortType = target.value;
+
+    setSortType(newSortType as Sorts);
+    dispatch({ type: `SORT:${newSortType}` as Actions });
+  };
 
   return (
-    <StyledSort>
+    <StyledSortWrapper>
       <label htmlFor='sort'>
         <i className='material-icons'>sort</i>Sort by
       </label>
-      <select id='sort' value={type} onChange={onChange}>
-        <option value='CREATION_DATE'>Creation Date</option>
-        <option value='DEADLINE'>Deadline</option>
+      <select id='sort' value={sortType} onChange={onChange}>
+        <option value={Sorts.CREATION_DATE}>Creation Date</option>
+        <option value={Sorts.DEADLINE}>Deadline</option>
       </select>
-    </StyledSort>
+    </StyledSortWrapper>
   );
 };
 

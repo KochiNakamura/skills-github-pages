@@ -1,10 +1,12 @@
 import React from "react";
 import moment from "moment";
+
 import { Wrapper } from "./styles";
 import TextButton from "../../styles/TextButton";
 import ButtonWrapper from "../../styles/ButtonWrapper";
+import { Project as TProject } from "../../types/common";
 
-const Project = ({ name, createdAt, deadline }: any) => {
+const Project = ({ name, createdAt, deadline }: TProject) => {
   const formattedDeadline = moment(deadline).format("h:mm a, MMMM Do YYYY");
   const creationDate = moment(createdAt).fromNow();
 

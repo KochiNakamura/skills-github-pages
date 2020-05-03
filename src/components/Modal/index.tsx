@@ -1,9 +1,17 @@
 import React, { useEffect } from "react";
+
 import { Wrapper, ContentWrapper, Heading, ModalWrapper } from "./styles";
 import ButtonWrapper from "../../styles/ButtonWrapper";
 import TextButton from "../../styles/TextButton";
 
-const Modal = ({ heading, children, onClose, onSave }: any) => {
+interface Props {
+  heading: string;
+  children: React.ReactNode;
+  onClose: () => void;
+  onSave: () => void;
+}
+
+const Modal = ({ heading, children, onClose, onSave }: Props) => {
   useEffect(() => {
     document.body.style.overflow = "hidden";
     return () => {
