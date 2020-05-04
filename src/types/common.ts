@@ -3,9 +3,9 @@ import Statuses from "../constants/statuses";
 
 export interface Project {
   id: string;
-  createdAt: string;
+  createdAt: number;
   name: string;
-  deadline: string;
+  deadline: number;
   status: Statuses;
   timeLogged: number;
 }

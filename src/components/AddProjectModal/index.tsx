@@ -29,7 +29,7 @@ const AddProjectModal = ({ show, onClose }: Props) => {
   const dispatch = useProjectsDispatch();
 
   // Deadline is invalid if it is less than a day.
-  const isDeadlineInvalid = getTimeDifference(deadline, minDate) < 0;
+  const isDeadlineInvalid = Math.ceil(getTimeDifference(deadline, minDate)) < 0;
 
   // reset modal state
   useEffect(() => {
@@ -48,9 +48,9 @@ const AddProjectModal = ({ show, onClose }: Props) => {
     } else if (name && deadline && timeSpent >= 0) {
       const newProject = {
         name,
-        deadline: deadline.toString(),
+        deadline: deadline.unix(),
         id: uuidv4(),
-        createdAt: Date.now(),
+        createdAt: moment().unix(),
         status: Statuses.INCOMPLETE,
         timeLogged: timeSpent,
       };
@@ -83,6 +83,7 @@ const AddProjectModal = ({ show, onClose }: Props) => {
           Deadline(1 day minimum)
           <DateTime
             value={deadline}
+            dateFormat='MMMM Do YYYY'
             closeOnSelect={true}
             isValidDate={(current) => current.isSameOrAfter(minDate)}
             onChange={(newDate) => {

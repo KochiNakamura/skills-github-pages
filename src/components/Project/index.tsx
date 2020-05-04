@@ -14,8 +14,8 @@ const Project = ({ name, createdAt, deadline, status, id, timeLogged }: TProject
   const [showModal, setModalVisibility] = useState(false);
   const dispatch = useProjectsDispatch();
 
-  const formattedDeadline = moment(deadline).format("h:mm a, MMMM Do YYYY");
-  const creationDate = moment(createdAt).fromNow();
+  const formattedDeadline = moment.unix(deadline).format("h:mm a, MMMM Do YYYY");
+  const creationDate = moment.unix(createdAt).fromNow();
   const isProjectCompleted = status === Statuses.COMPLETE;
   const statusButton = isProjectCompleted
     ? { text: "Mark InComplete", icon: "loop" }

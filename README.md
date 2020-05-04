@@ -28,8 +28,9 @@ Individual time registrations should be 30 minutes or longer, and once a project
 ## Stack
 
 1. React ❤️ Hooks ❤️ Context Api for state management
-2. Styled Components
+2. Styled components
 3. TypeScript
+4. React testing library for testing components
 
 ## Summary
 
@@ -39,8 +40,10 @@ Individual time registrations should be 30 minutes or longer, and once a project
 - LocalStorage is used to persist state.
 - Common/shared components or files are separated so that they can be used by other components.
 - Everything is typed as per the tsconfig.json given as starting point.
-- Fragile, logical or important part of apps are only tested.
 - Native HTML elements are used over libraries, as the need of the project was already met and also to keep things simple in time constraints.
+- For tests, I have tested reducer, utils components and a UI component that can showcase how all the other UI elements can be tested as well.
+- For showing tests for UI components, I have tested ProjectSort component, which needs context values and also affects order of projects in the other component. I have choosen this component to show how I can test a normal component, a context bound component, a global hook using component, a component having form fields(select in this component's case), and a component that changes the global context state.
+- Fragile, logical and important part of apps are only tested, due to time constraints.
 
 ## Improvements that can be done
 
